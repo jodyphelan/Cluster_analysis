@@ -109,7 +109,7 @@ class vcf_class:
 			dists.append(row)
 		O.close()
 		if pca:
-			run_cmd("plink --vcf %s --pca --out %s" % (tmpfile,tmpfile))
+			run_cmd("plink --vcf %s --pca --double-id --allow-extra-chr --out %s" % (tmpfile,tmpfile))
 		run_cmd("rm %s*" % tmpfile)
 		return dists
 
@@ -141,6 +141,7 @@ def main(args):
 	vcf.vcf_to_fasta(args.ref)
 	vcf.vcf_to_matrix()
 	vcf.get_plink_dist(pca=True)
+
 parser = argparse.ArgumentParser(description='TBProfiler pipeline',formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--sample-file',help='sample file',required=True)
 parser.add_argument('--prefix',help='Prefix for files',required=True)
